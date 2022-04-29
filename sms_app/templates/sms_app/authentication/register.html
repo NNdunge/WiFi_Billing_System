@@ -1,0 +1,71 @@
+
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sms_app/css/style.css' %} ">
+    <script src="{% static 'sms_app/js/script.js'%}" defer></script>
+</head>
+<body>
+    <!--messages-->
+    <div class="messages">
+        <img class="message-icon" src="{% static 'sms_app/icons/sign.svg' %}" alt="error">
+        <div class="message">
+            <h3 class="message-title title">Error</h3>
+            <p class="message-paragraph">Something went wrong!</p>
+        </div>
+        <span class="message-close error">x</span>
+    </div>
+    <!--end messages-->
+    <div class="container">
+        <div class="card center spacer">
+            <h1 class="title text-center">Register With</h1>
+            <div class="social-login">
+                <button class="social-btn">
+                    <img class="icon" src= "{% static 'sms_app/icons/gmail.svg' %} "alt="gmail icon">
+                    Gmail
+                </button>
+                <button class="social-btn">
+                    <img class="icon" src="{%static 'sms_app/icons/facebook.svg' %}" alt="facebook icon">
+                    Facebook
+                </button>
+            </div>
+            
+            <div class="text-center line form-divider">or</div>
+            
+            <form method="POST" action="." class="login-form spacer" id="signup-form"> 
+                {% csrf_token %}
+                
+                <div class="input-group"> 
+                    <img class="icon input-icon" src="{% static 'sms_app/icons/profile-user.svg' %}" alt=""> 
+                    {{form.username}} 
+                </div> 
+                <div class="input-group"> 
+                    <img class="icon input-icon" src="{% static 'sms_app/icons/mail.svg' %}" alt=""> 
+                    {{form.email}} 
+                </div> 
+                <div class="input-group"> 
+                    <img class="icon input-icon" src="{% static 'sms_app/icons/padlock.png' %}" alt=""> 
+                    {{form.password1}} 
+                </div> 
+                <div class="input-group"> 
+                    <img class="icon input-icon" src="{% static 'sms_app/icons/padlock.png' %}" alt=""> 
+                    {{form.password2}} 
+                </div> 
+
+                <input type="submit" class="submit" value="Signup"> 
+            </form> 
+        </div>
+    </div>
+
+    <div class="redirect">
+        Have an account?&nbsp;<a href="register.html" class="link">LogIn</a>
+        <br><br>    
+        <a href="forgot-password.html" class="link">Forgot password?</a>
+    </div>
+</body>
+</html>

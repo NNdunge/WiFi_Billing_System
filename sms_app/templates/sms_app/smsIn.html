@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Billing Records</h1>
+  <em>Daily Billing records!</em>
+
+  <table>
+    {% for sms in sms_db %}
+    <tr>
+      <th>sms_txt:{{sms.sms_txt}}</th>
+      <th>PhoneNumber:{{sms.sender_number}}</th>
+      <th>sent_dt:{{sms.sent_dt}}</th>
+    </tr>
+    {% endfor %}
+</table> 
+{% endblock %}
