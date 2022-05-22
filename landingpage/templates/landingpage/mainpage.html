@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Solutions</title>
+    <link rel="stylesheet"type="text/css" href="{% static 'landingpage/css/landing.css' %} ">
+     
+</head>
+<body>
+    <a href="" class="logo"></a>
+    <div class="container">
+        <div class="card center spacer">
+            <h1 class="title text-center">WiFi Billing System</h1>
+            <div class="mute-paragraph">
+                Your Billing solutions Sorted. 
+            </div>
+            <br>
+            <a href="{% url 'sms_app:register' %}" class="btn">Admin </a>
+            <br>
+            <a href="{% url 'users_app:userRegistration' %}" class="btn">Customer Client</a>
+        </div>
+    </div>            
+</body>
+</html>
+</body>
+</html>

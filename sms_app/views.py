@@ -5,13 +5,16 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.crypto import get_random_string
 from django.shortcuts import render,redirect
-
+#forms
 from django.forms import ValidationError
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 from .forms import CreateUserForm
 from .models import *
+from django.contrib.auth.models import User
+ #import messages
+from django.contrib import messages
 
 # Create your views here.
 
@@ -63,7 +66,7 @@ def smsInbox(request):
    else:
       sms_db = Sms_in.objects.all()
       context = {'sms_db':sms_db}
-      return render(request, 'sms_app/index.html',context)
+      return render(request, 'sms_app/smsIn.html',context)
 
 
 def generateVoucher(type_ID):   
@@ -102,26 +105,54 @@ def retrieveVoucher(price):
          break
                    
    return voucherID
-          
-def register(request):
-       form = CreateUserForm()
 
-       if request.method == 'POST':
-              form = CreateUserForm(request.POST)
-              #Validate form
-              if form.is_valid():
-                     form.save()
-                     username= form.cleaned_data.get('username')
-                     password =form.cleaned_data.get('password')
-                     user= authenticate(username=username,password=password)
-                     login(request,user)
+def smsOutbox(request):
+      from_db = Sms_out.objects.all()
+      context = {"from_db":from_db}
+      return render (request,'sms_app/smsOut.html',context)
+              
+def voucher(request):
+      get_db=Voucher.objects.all() 
+      context={"get_db": get_db}
+      return render (request,'sms_app/voucher.html',context)
+       
+def register(request):
+   form = CreateUserForm()
+   if request.method == 'POST':
+      form = CreateUserForm(request.POST)
+      #Validate form
+      if form.is_valid():
+         print(request.POST)
+         print(form)
+         form.save()
+         username= form.cleaned_data.get('firstname')
+         password =form.cleaned_data.get('password')
+         user= authenticate(username=username,password=password)
+         login(request,user) 
+         return redirect('home')
+      else:
+            context={'form':form}  
+            all_errors = form.errors.as_data()
+            for err in all_errors:
+                   print(err) 
+            return render (request,'sms_app/authentication/register.html',context)
             
-       context={'form':form}
-       return render (request,'sms_app/authentication/register.html',context)
+   else:     
+      context={'form':form}             
+      return render (request,'sms_app/authentication/register.html',context)
 
 def signIn(request):
-       context={}
-       return render(request,'sms_app/authentication/signin.html',context)
+      if request.method =='POST':
+         username=request.POST['username']
+         password=request.POST['password']
+         user_to_be_authenticated = authenticate(username=username,password=password)
+         if user_to_be_authenticated is not None:      
+            login(request,user_to_be_authenticated) 
+            return redirect('home')
+         else:
+               messages.info(request,"Sorry wrong credentials")
+      context={}
+      return render(request,'sms_app/authentication/signin.html',context)
 
 def forgotPass(request):
        context={}
@@ -131,19 +162,15 @@ def checkEmail(request):
        context={}
        return render(request,'sms_app/authentication/check-email.html',context)
 
+def logOut(request):
+      logout(request)
+      return redirect('register.html')
 
+def dashboard(request):
+       context={}
+       return render(request,'sms_app/dashboard.html',context)
 
-            
+def landingpage(request):
+       context={}
+       return render(request,'sms_app/dashboard.html',context)
 
-      
-
-   
-
- 
-      
-         
-
-
-
-
-          

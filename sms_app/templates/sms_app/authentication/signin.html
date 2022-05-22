@@ -5,37 +5,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignIn</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{% static 'sms_app/css/style.css' %}">
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="{% static 'sms_app/js/script.js' %}" defer></script>
 </head>
 <body>
-
+{% if messages %}
+    {%for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <strong>{{message}}</strong>
+    </div>
+    {%endfor%}
+{%endif%}
 
     <div class="container">
         <div class="card center spacer">
-            <h1 class="title text-center">Sign In With</h1>
+            <h1 class="title text-center">Log In With</h1>
             <div class="social-login">
                 <button class="social-btn">
                     <img class="icon" src="{% static 'sms_app/icons/gmail.svg' %}" alt="gmail icon">
                     Gmail
                 </button>
-                <button class="social-btn">
-                    <img class="icon" src="{% static 'sms_app/icons/facebook.svg' %}" alt="facebook icon">
-                    Facebook
-                </button>
+                
             </div>
             <div class="text-center line form-divider">or</div>
-            <form action="" class="login-form spacer">
+            <form method ="POST" action="." class="login-form spacer">
+                {% csrf_token %}
                 <div class="input-group">
                     <img class="icon input-icon" src="{% static 'sms_app/icons/mail.svg' %}"alt="">
-                    <input type="email" class="form-input" placeholder="lnn@mail.com">
+                    <input type="text" class="form-input" placeholder="username" name="username" id="username">
                 </div>
                 <div class="input-group">
                     <img class="icon input-icon" src="{% static 'sms_app/icons/padlock.png' %}" alt="">
-                    <input type="password" class="form-input" placeholder="password">
+                    <input type="password" class="form-input" placeholder="password" name="password" id="password">
                 </div>
-                <input type="submit" class="submit" value="Login">
+                <a href="{% url 'login' %}">
+                    <input type="submit" class="submit" value="Login">
+                </a>
+                
             </form>
 
         </div>
@@ -44,9 +53,9 @@
     </div>
 
     <div class="redirect">
-        Don't have an account?&nbsp;<a href="register.html" class="link">Signup</a>
+        Don't have an account?&nbsp;<a href="{% url 'register' %}" class="link">Register</a>
         <br><br>
-        <a href="forgot-password.html" class="link">Forgot password?</a>
+        <a href="{% url 'forgot-password'%}" class="link">Forgot password?</a>
     </div>
 
 

@@ -13,7 +13,7 @@ class VoucherAdmin(admin.ModelAdmin):
 
 class Sms_outAdmin(admin.ModelAdmin):
     list_display= ('corresponding_request', 'currentTime_dt','voucherID')
-     
+ 
 admin.site.register(Sms_in,Sms_inAdmin)
 admin.site.register(Voucher_type,Voucher_typeAdmin)
 admin.site.register(Voucher,VoucherAdmin)

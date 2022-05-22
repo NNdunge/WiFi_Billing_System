@@ -1,8 +1,13 @@
 from asyncio.windows_events import NULL
 from tkinter import CASCADE
-from django.db import models
 from django.utils import timezone
 from datetime import datetime
+from django.db import models
+from django.contrib.auth.models import User
+import uuid
+
+
+
 
 # Create your models here.
 class Sms_in(models.Model):
@@ -40,7 +45,5 @@ class Sms_out(models.Model):
     voucherID=models.ForeignKey(Voucher,on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.corresponding_request,self.currentTime_dt,self.voucherID
-
-
+        return ("{}:{}","[]").format (self.corresponding_request,self.currentTime_dt,self.voucherID)
 

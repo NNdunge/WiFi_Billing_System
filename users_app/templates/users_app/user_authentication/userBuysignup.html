@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+  {% load crispy_forms_tags %}
+  <form method="post">
+    {%csrf_token%}
+    {%if form%}
+  
+    <div class="row bg-white">
+        {%for field in form%}
+        <div class="col-md-6 p-2">{{field|as_crispy_field}}</div>
+        {%endfor%}
+  
+    <div class="col-md-12">
+    <ul class="list-inline text-right">
+        <li class="list-inline-item">
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-Success">Save</button>
+        </li>
+    </ul>
+        </div>
+         </div>
+    {%endif%}
+  </form>
+    </div>
+    <div class="col-md-6">
+        <h4>Person Details</h4>
+        <table class="table table-striped bg-white">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">user</th>
+      <th scope="col">userID</th>
+      <th scope="col">firstName</th>
+      <th scope="col">lastName</th>
+      <th scope="col">dob</th>
+      <th scope="col">gender</th>
+      <th scope="col">email</th>
+      <th scope="col">location</th>
+    </tr>
+  </thead>
+  <tbody>
+      {%for detail in detail%}
+  <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{detail.userID}}</td>
+      <td>{{detail.firstName}}</td>
+      <td>{{detail.lastName}}</td>
+      <td>{{detail.dob}}</td>
+      <td>{{detail.gender}}</td>
+      <td>{{detail.email}}</td>
+      <td>{{detail.location}}</td>
+    </tr>
+       {%endfor%}
+  </tbody>
+            </table>
+            {%if detail|length == 0%}
+            <p class="text-center p-2 mb-0 text-danger bg-white">No Data to Display </p>
+            {%endif%}
+        </div>
+    </div>
+  
+  </div>

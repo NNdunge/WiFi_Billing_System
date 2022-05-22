@@ -13,9 +13,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from users_app import views as user_views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('sms_app.urls')),
+    path('',include(('landingpage.urls','landingpage'), namespace='start')),
+    path('smsApp/' ,include(('sms_app.urls','sms_app'),namespace='myadmin')),
+    path('userApp/',include(('users_app.urls','users_app'),namespace='users')),
+
+    #backup path
+    path (
+        'registerbackup/', 
+        user_views.LynBackupRegistration,
+        name ='registerbackup'
+    ),
 
 ]

@@ -1,0 +1,8 @@
+"id";"voucherType";"voucherPrice";"validVoucherTime"
+1;"pawa20";20;20
+2;"pawa50";50;60
+3;"pawa100";100;120
+4;"wazito200";200;300
+5;"boss500";500;450
+6;"GOAT1000";1000;850
+7;"ERROR";0;0
